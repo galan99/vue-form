@@ -4,7 +4,7 @@
 
 # 预览
 
-[在线预览](https://raw.githubusercontent.com/galan99/vue-form/master/static/admin.gif)
+![image](https://raw.githubusercontent.com/galan99/vue-form/master/static/admin.gif)
 
 # 使用
 
