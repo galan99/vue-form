@@ -71,15 +71,45 @@
             {{o.label}}
             </el-checkbox>
         </el-checkbox-group>
-        <!--图片上传-->
+        <!--单张图片上传-->
         <el-upload 
-            v-else-if="item.xtype==='fileField'" 
+            v-else-if="item.xtype==='imageField'" 
             class="avatar-uploader"
             :action="item.url"
             :show-file-list="false"           
             :on-success="handleAvatarSuccess">
             <img v-if="item.value" :src="item.value" style="width:100%;" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <!--多张图片上传-->
+        <div v-else-if="item.xtype==='imagesField'" class="img-list">
+            <div class="img-content" v-for="(list,index) in item.value">
+                <img :src="list">
+                <div class="del">
+                    <i @click="imgListRemove(list,index)" class="el-icon-delete"></i>
+                </div>
+            </div>
+            <el-upload
+                class="more-up"              
+                :action="item.url"
+                list-type="picture-card"
+                :show-file-list="false"
+                :on-success="imgListSuccess">
+                <i class="el-icon-plus"></i>           
+            </el-upload>
+        </div>
+        <!--文件上传-->
+        <el-upload
+            v-else-if="item.xtype==='fileField'"
+            class="upload-test"
+            :action="item.url"
+            :show-file-list="false"         
+            :on-success="handleAvatarSuccess">
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" v-if="item.value" class="fileupload">
+                {{item.value}}
+                <i @click="fileRemove" class="el-icon-circle-close"></i>
+            </div>
         </el-upload>
         <!--日期框2018-03-26-->
         <el-date-picker
@@ -164,7 +194,8 @@
             
             return R
         },
-        canShow() {          
+        canShow() {
+            return true          
             return this.item.xtype==='textField' || this.item.xtype==='textareaField' || this.item.xtype==='numberField' 
             || this.item.xtype==='selectField' || this.item.xtype==='radioField' || this.item.xtype==='checkField' 
             || this.item.xtype==='fileField' || this.item.xtype==='dateField' || this.item.xtype==='htmlEditorField'
@@ -183,7 +214,7 @@
             }).catch((err) => {
                 this.$message.error('请求出错，请稍候再试');
             });
-        }        
+        }      
       },
       methods: {
         //富文本初始化
@@ -198,6 +229,11 @@
                 this.$emit('input', instance.getContent())
             });
         },
+        //删除上传文件
+        fileRemove(){
+            this.item.value = '';
+            this.$emit('input', this.item.value)
+        },
         //上传图片成功
         handleAvatarSuccess(res){
             if(res.code != 0){
@@ -206,6 +242,20 @@
             }
             this.item.value = res.data.url           
             this.$emit('input', res.data.url)
+        },
+        //多图删除
+        imgListRemove(val, index) {
+            this.item.value.splice(index,1)
+            this.$emit('input', this.item.value)
+        },
+        //多图上传
+        imgListSuccess(res) {
+            if(res.code != 0){
+                this.$message.error(res.msg);
+                return false
+            }
+            this.item.value.push(res.data.url)
+            this.$emit('input', this.item.value)
         },
         //日期组件格式化
         dateChange(res,val,type) {
@@ -237,13 +287,76 @@
         line-height: 178px;
         text-align: center;
     }
-
+    .img-list{
+        overflow: hidden;
+        .more-up{
+            float: left;
+            margin:5px 20px 20px 0;
+        }
+        .img-content{
+            float: left;
+            position:relative;
+            width: 148px;
+            height: 148px;
+            line-height: 148px;
+            margin:5px 20px 20px 0;
+            border:1px solid #d1dbe5;
+            border-radius: 6px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-align: center;
+            img{
+                max-width:100%;
+                max-height: 100%;
+                vertical-align: middle;
+            }
+            .del{
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height: 100%;
+                color:#fff;                
+                font-size: 20px;
+                opacity: 0;              
+                transition: all .3s;
+                background-color: rgba(0, 0, 0, .5);
+                .el-icon-delete{
+                    cursor: pointer;
+                }
+            }
+            &:hover{
+                .del{
+                    opacity: 1;
+                }                
+            }
+        }
+    }
+    .fileupload{
+        vertical-align: middle;
+        .el-icon-circle-close{
+            font-size:22px;
+            margin-left:10px;
+            color:red;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+    }
+    
 </style>
 <style lang="less" type="text/less" rel="stylesheet/less">
     .myform{
         .edui-default{
             width:auto!important;
             position: relative!important;
+        }
+    }
+    .upload-test{
+        .el-upload--text{
+            width: auto;
+            height: auto;
+            line-height: 1;
+            border:none;
         }
     }
 </style>

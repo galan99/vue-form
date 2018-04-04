@@ -35,6 +35,7 @@ export const wandaoList = [
 						"select":1,
 						"html":"<p>这是p标签1111</p><a href=''>超链接</a>",
 						"pic":"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3905236512,3898515116&fm=27&gp=0.jpg",
+						"image":["https://www.baidu.com/img/bd_logo1.png","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3905236512,3898515116&fm=27&gp=0.jpg",]
 					}, {
 						"type": "角色",
 						"name": "role_1",
@@ -47,6 +48,7 @@ export const wandaoList = [
 						"select":2,
 						"html":"这是文本<h2>标题</h2>",
 						"pic":"https://www.baidu.com/img/bd_logo1.png",
+						"image":[]
 					}, {
 						"type": "角色",
 						"name": "这是名称",
@@ -59,6 +61,7 @@ export const wandaoList = [
 						"select":1,
 						"html":"<p>这是p标签3333</p><a href=''>超链接</a>",
 						"pic":"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3905236512,3898515116&fm=27&gp=0.jpg",
+						"image":["https://www.baidu.com/img/bd_logo1.png","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3905236512,3898515116&fm=27&gp=0.jpg","https://www.baidu.com/img/bd_logo1.png"]
 					}, {
 						"type": "角色",
 						"name": "4444",
@@ -71,6 +74,7 @@ export const wandaoList = [
 						"select":2,
 						"html":"这是文本<h2>标题</h2>",
 						"pic":"https://www.baidu.com/img/bd_logo1.png",
+						"image":[]
 					}, {
 						"type": "角色",
 						"name": "测试18——sw",
@@ -83,6 +87,7 @@ export const wandaoList = [
 						"select":2,
 						"html":"<p>这是p标签5555555555555</p><a href=''>超链接</a>",
 						"pic":"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3905236512,3898515116&fm=27&gp=0.jpg",
+						"image":["https://www.baidu.com/img/bd_logo1.png","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3905236512,3898515116&fm=27&gp=0.jpg","https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3905236512,3898515116&fm=27&gp=0.jpg",]
 					}, {
 						"type": "角色",
 						"name": "77666",
@@ -95,6 +100,7 @@ export const wandaoList = [
 						"select":1,
 						"html":"这是文本<h2>标题</h2>",
 						"pic":"https://www.baidu.com/img/bd_logo1.png",
+						"image":["https://www.baidu.com/img/bd_logo1.png","https://www.baidu.com/img/bd_logo1.png",]
 					}, {
 						"type": "角色",
 						"name": "test菜单77",
@@ -107,6 +113,7 @@ export const wandaoList = [
 						"select":1,
 						"html":"<p>这是p标签77777</p><a href=''>超</a>",
 						"pic":"https://www.baidu.com/img/bd_logo1.png",
+						"image":[]
 					}, {
 						"type": "角色",
 						"name": "testzhou111",
@@ -119,6 +126,7 @@ export const wandaoList = [
 						"select":2,
 						"html":"<p>这是p标签88888</p><a href=''>超链接88</a>",
 						"pic":"https://www.baidu.com/img/bd_logo1.png",
+						"image":["https://www.baidu.com/img/bd_logo1.png",]
 					}, {
 						"type": "角色",
 						"name": "一起玩用户",
@@ -131,6 +139,7 @@ export const wandaoList = [
 						"select":1,
 						"html":"<p>这是p标签9999999</p><a href=''>超链接9999</a>",
 						"pic":"https://www.baidu.com/img/bd_logo1.png",
+						"image":[]
 					}, {
 						"type": "角色",
 						"name": "SDK管理员",
@@ -143,6 +152,7 @@ export const wandaoList = [
 						"select":2,
 						"html":"<p>这是p标签000000000</p><a href=''>超链接发风哥好风格化规范化风哥哈风格化发</a>",
 						"pic":"https://www.baidu.com/img/bd_logo1.png",
+						"image":[]
 					}],
 					"next": 0
 				}

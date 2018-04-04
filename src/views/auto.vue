@@ -58,23 +58,36 @@
             <!--表格-->
             <el-table v-loading="load_data" element-loading-text="拼命加载中" :data="items" border style="width: 100%" v-if="gridUi.columns">
                   <el-table-column
-                      v-for="item in gridUi.columns" 
-                      :prop="item.dataIndex" 
-                      :label="item.text"
-                      :key="item.name"
-                      :sortable="item.sortable == 'true'"   
-                      min-width="100">
-                      <template slot-scope="scope">
-                          <el-popover trigger="hover" placement="top" v-if="item.xtype=='image'">
-                              <img :src="scope.row[item.dataIndex]" class="limitImg" v-if="scope.row[item.dataIndex] !== null">
-                              <span slot="reference" class="name-wrapper">
-                                  <img :src="scope.row[item.dataIndex]" class="IM" v-if="scope.row[item.dataIndex] !== null">
-                              </span>
-                          </el-popover>
-                          <div v-else-if="item.xtype=='html'" v-html="scope.row[item.dataIndex]"></div>
-                          <div v-else>{{scope.row[item.dataIndex]}}</div>
-                      </template>                      
-                  </el-table-column>
+                        v-for="item in gridUi.columns" 
+                        :prop="item.dataIndex" 
+                        :label="item.text"
+                        :key="item.id"
+                        :sortable="item.sortable == 'true'"                         
+                        min-width="100">
+                        <template slot-scope="scope">
+                            <div :style="{textAlign:item.align}">
+                                <el-popover trigger="hover" placement="top" v-if="item.xtype=='image'">
+                                    <img :src="scope.row[item.dataIndex]" class="limitImg" v-if="scope.row[item.dataIndex]">
+                                    <span slot="reference" class="name-wrapper">
+                                        <img :src="scope.row[item.dataIndex]" class="IM" v-if="scope.row[item.dataIndex]">
+                                    </span>
+                                </el-popover>
+                                <div class="imageslist" v-if="item.xtype=='images'">
+                                    <el-popover trigger="hover" placement="top" v-for="list in scope.row[item.dataIndex]" :key="list">
+                                        <img :src="list" class="limitImg" v-if="list">
+                                        <span slot="reference" class="name-wrapper">
+                                            <img :src="list" class="IM" v-if="list">
+                                        </span>
+                                    </el-popover>
+                                </div>
+                                <div v-else-if="item.xtype=='html'" v-html="scope.row[item.dataIndex]"></div>
+                                <div v-else-if="item.xtype=='video'">
+                                    <video :src="scope.row[item.dataIndex]" controls="controls" width="360" height="180"></video>
+                                </div>
+                                <div v-else>{{scope.row[item.dataIndex] | setLength(item.length)}}</div>
+                            </div>
+                        </template>                      
+                    </el-table-column>
                   <el-table-column label="操作" min-width="240" width="240" v-if="gridUi.operation.length">
                       <template slot-scope="scope">
                           <template v-for="item in gridUi.operation">
@@ -250,6 +263,15 @@
                 },//图表数据               
             }
         },
+        filters: {
+            //限制table字段长度
+            setLength: function(value,length){
+                if(length){
+                    value = value.substring(0,length)+'...'
+                }
+                return value
+            }
+        },
         created(){          
             this.getUi()
             
@@ -272,6 +294,7 @@
                         this.editForm.id = item.id
                     }
                 })
+
                 this.$emit('input', { ...formData })
             },
             //渲染页面ui
@@ -310,6 +333,7 @@
                 })
                 this.$get('/wandao/app').then((res) => {
                   let data = res.data;
+                  console.log(data)
                   if(data.code==0){
                     this.items =  data.data.items;
                     this.totalPage = data.data.count;
@@ -431,17 +455,45 @@
 </script>
 <style scoped lang="less" type="text/less" rel="stylesheet/less">
     .el-pagination {
-        padding-top: 30px;
         float: right;
     }
-    .IM {
+    .IM{
         width: 50px;
         height: 50px;
     }
 
+    .imageslist .IM{
+        margin-right:8px;
+    }
+
     .limitImg {
-        max-width: 300px;
-        max-height: 300px;
+        max-width: 250px;
+        max-height: 250px;
+    }
+    .videobox{
+        text-align:center;
+        width:360px;
+        height:180px;
+        overflow:hidden;
+        img{
+            width:100%;
+        }
+    } 
+</style>
+<style lang="less" type="text/less" rel="stylesheet/less">
+    .ibox-content{
+        .toolbar{
+           .myform{
+                margin:10px 10px 0 0;
+            }
+            .el-button{
+                margin-top:10px;
+                margin-left:35px;
+                &:first-child{
+                    margin-left:0;
+                }
+            }
+        }
     }
 </style>
 

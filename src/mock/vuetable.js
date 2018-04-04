@@ -165,12 +165,23 @@ export const vuetable = [
                                     },
                                     {
                                         "text": "图片",
-                                        "xtype": "fileField",
+                                        "xtype": "imageField",
                                         "name": "pic",
                                         "dataIndex": "pic",
                                         "value": "",
                                         "required": "true",
                                         "url":'/wpk/file/upload'
+                                    },
+                                    {
+                                        "xtype": "imagesField",
+                                        "text": "多张图片",                      
+                                        "name": "image",
+                                        "dataIndex": "image",
+                                        "value": [],
+                                        "disabled": false,
+                                        "placeholder": "请上传图片",
+                                        "required":true,
+                                        "url":'/wpk/file/upload' 
                                     },                                   
                                     {
                                         "text": "富文本",
